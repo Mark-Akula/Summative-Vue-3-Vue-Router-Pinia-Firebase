@@ -22,7 +22,10 @@ console.log(info)
             <h1 class="title">{{ info.data.original_title }}</h1>
             <h3>Release Date: {{ info.data.release_date }}</h3>
             <h3>Overview: {{ info.data.overview }}</h3>
-            <button class="purchase-button">purchase</button>
+            <button class="purchase-button" @click="store.addToCart(props.id, {
+              poster: info.data.poster_path,
+              title: info.data.original_title
+            })">Purchase</button>
           </div>
         </div>
       </div>
