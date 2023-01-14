@@ -11,7 +11,7 @@ export const useStore = defineStore('store', {
     async getMovies() {
       let data = (await axios.get("https://api.themoviedb.org/3/trending/movie/week", {
         params: {
-          api_key: "ad891932e4907c23fc8a99002a4b5d3f",
+          api_key: "e5a15bfef5377c118448ec56598ced79",
         }
       })).data.results;
       

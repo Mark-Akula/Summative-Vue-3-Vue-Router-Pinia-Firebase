@@ -1,37 +1,30 @@
 <script setup>
-import axios from "axios"
-import { ref } from "vue"
-import { useStore } from '../store'
+import axios from 'axios';
 const props = defineProps(["id"]);
 const emits = defineEmits(["toggleModal"]);
-const movies = ref(null);
-const movieData = ref(null);
-const store = useStore();
-const getMovie = async () => {
-  movieData.value = (
-    await axios.get(`https://api.themoviedb.org/3/movie/${props.id}`, {
-      params: {
-        api_key: "45f0db8e20f87e3e431aa1750076bb74",
-        append_to_response: "videos",
-      },
-    })
-  )
-};
-getMovie();
-// await store.getMovies();
-console.log(movieData.data);
-let id = props.id
+const info = await axios.get(`https://api.themoviedb.org/3/movie/${props.id}`, {
+  params: {
+    api_key: "e5a15bfef5377c118448ec56598ced79",
+    append_to_response: "videos"
+  },
+})
+console.log(info)
 </script>
 
 <template>
   <Teleport to="body">
     <div class="modal-outer-container" @click.self="emits('toggleModal')">
-      <div class="modal-inner-container" v-if="movieData">
+      <div class="modal-inner-container">
         <button class="close-button" @click="emits('toggleModal')">X</button>
-        <h1>{{ movieData.data.title }}</h1>
-        <h1>{{ movieData.data.release_date }}</h1>
-        <button>purchase</button>
-        <img id="image" :src="`https://image.tmdb.org/t/p/w500${movieData.data.poster_path}`" alt="no image" />
+        <div class="poster-text-container">
+          <img :src="`https://image.tmdb.org/t/p/w500${info.data.poster_path}`" alt="">
+          <div class="text">
+            <h1 class="title">{{ info.data.original_title }}</h1>
+            <h3>Release Date: {{ info.data.release_date }}</h3>
+            <h3>Overview: {{ info.data.overview }}</h3>
+            <button class="purchase-button">purchase</button>
+          </div>
+        </div>
       </div>
     </div>
   </Teleport>
@@ -47,16 +40,22 @@ let id = props.id
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background: #0000008c;
+  background: #00000099;
   z-index: 3;
 }
+
 .modal-outer-container .modal-inner-container {
-  background-color: #abcbeb;
-  width: clamp(280px, 100%, 800px);
-  height: 400px;
+  background-color: #1F2123;
+  color: white;
+  width: 90%;
+  height: 90%;
+  max-width: 1500px;
+  max-height: 1200px;
   position: relative;
-  border: 10px;
+  display: flex;
+  flex-wrap:wrap;
 }
+
 .modal-outer-container .modal-inner-container .close-button {
   position: absolute;
   right: 0px;
@@ -67,8 +66,51 @@ let id = props.id
   font-size: 1.25rem;
   color: white;
 }
-#image{
-  width: 200px;
-  aspect-ratio: 2/3;
+
+.poster-text-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.poster-text-container img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+}
+.text h3 {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 5rem;
+  font-weight: bold;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 20px;
+}
+.purchase-button {
+  background: #0077C9;
+  padding: 20px 40px;
+  border-radius: 20px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-left: 35%;
+  margin-top: 5%
+}
+.purchase-button:hover {
+  background-color: #004d66;
+  transform: translateY(-2px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
 }
 </style>

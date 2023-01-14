@@ -1,19 +1,15 @@
-<script setup>
-import Top from "../components/header.vue"
-import middle from "../components/hero.vue"
-import bottom from "../components/footer.vue"
+<script>
+import SiteHero from '../components/SiteFooter.vue';
+import SiteHeader from '../components/SiteHeader.vue';
+import SiteFooter from '../components/SiteFooter.vue'
 </script>
 
 <template>
-<div class="header">
-    <Top />
-</div>
-<div class="hero">
-    <middle />
-</div>
-<div class="footer">
-    <bottom />
-</div>
+    <div class="main-container">
+        <SiteHeader></SiteHeader>
+        <SiteHero></SiteHero>
+        <SiteFooter></SiteFooter>
+    </div>
 </template>
 
 <style scoped>
