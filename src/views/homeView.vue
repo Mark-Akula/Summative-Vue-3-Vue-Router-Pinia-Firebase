@@ -1,14 +1,14 @@
-<script>
-import SiteHero from '../components/SiteFooter.vue';
+<script setup>
 import SiteHeader from '../components/SiteHeader.vue';
+import SiteHero from '../components/SiteHero.vue';
 import SiteFooter from '../components/SiteFooter.vue'
 </script>
 
 <template>
     <div class="main-container">
-        <SiteHeader></SiteHeader>
-        <SiteHero></SiteHero>
-        <SiteFooter></SiteFooter>
+        <SiteHeader/>
+        <SiteHero/>
+        <SiteFooter/>
     </div>
 </template>
 

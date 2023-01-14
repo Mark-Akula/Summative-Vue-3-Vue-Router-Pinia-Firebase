@@ -21,13 +21,12 @@ console.log(data)
 
 <template>
     <div>
-        <router-link to="/cart">
-            <h1 class="shopping-cart">Shopping Cart</h1>
-        </router-link>
-        <img v-for="movie in data" @click="openModal(movie.id)" class="posters"
-            :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" alt="">
+        <button @click="addCart()">Cart</button>
+        <div class="Movieposter">
+            <img v-for="movie in store.movies" :src="movie.poster" @click="openModal(movie.id)" />
+        </div>
+        <SiteModal v-if="showModal" @toggleModal="closeModal()" :id="selectedId" />
     </div>
-    <SiteModal v-if="showModal" @toggleModal="closeModal()" :id="selectedId" />
 </template>
 
 <style scoped>
