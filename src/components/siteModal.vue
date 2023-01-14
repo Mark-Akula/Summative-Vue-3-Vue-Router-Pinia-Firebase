@@ -1,5 +1,7 @@
 <script setup>
 import axios from 'axios';
+import { useStore } from '../store/index.js'
+const store = useStore();
 const props = defineProps(["id"]);
 const emits = defineEmits(["toggleModal"]);
 const info = await axios.get(`https://api.themoviedb.org/3/movie/${props.id}`, {
@@ -17,14 +19,14 @@ console.log(info)
       <div class="modal-inner-container">
         <button class="close-button" @click="emits('toggleModal')">X</button>
         <div class="poster-text-container">
-          <img :src="`https://image.tmdb.org/t/p/w500${info.data.poster_path}`" alt="">
+          <img :src="`https://image.tmdb.org/t/p/w500${info.data.poster_path}`">
           <div class="text">
             <h1 class="title">{{ info.data.original_title }}</h1>
             <h3>Release Date: {{ info.data.release_date }}</h3>
             <h3>Overview: {{ info.data.overview }}</h3>
             <button class="purchase-button" @click="store.addToCart(props.id, {
               poster: info.data.poster_path,
-              title: info.data.original_title
+              title: info.data.original_title,
             })">Purchase</button>
           </div>
         </div>
@@ -56,7 +58,7 @@ console.log(info)
   max-height: 1200px;
   position: relative;
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 }
 
 .modal-outer-container .modal-inner-container .close-button {
@@ -81,6 +83,7 @@ console.log(info)
   height: 100%;
   object-fit: cover;
 }
+
 .text h3 {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: 1.5rem;
@@ -98,6 +101,7 @@ console.log(info)
   text-align: center;
   margin-top: 20px;
 }
+
 .purchase-button {
   background: #0077C9;
   padding: 20px 40px;
@@ -111,6 +115,7 @@ console.log(info)
   margin-left: 35%;
   margin-top: 5%
 }
+
 .purchase-button:hover {
   background-color: #004d66;
   transform: translateY(-2px);

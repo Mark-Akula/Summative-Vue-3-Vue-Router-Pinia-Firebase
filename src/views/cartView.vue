@@ -1,12 +1,13 @@
 <script setup>
 import { useStore } from '../store/index.js'
-
 const store = useStore();
 </script>
 
 <template>
-  <div class="cartBox" v-for="movie in Array.from(store.cart.values())">
-    <p>Movie Title: {{ movie.title }}</p>
+  <div v-for="movie in Array.from(store.cart.values())">
     <img :src="`https://image.tmdb.org/t/p/w500${movie.poster}`" />
+    <h1>{{ movie.title }}</h1>
+    <h2>{{ movie.date }}</h2>
+    <button @click="store.removeFromCart(movie.id)">Remove</button>
   </div>
 </template>
