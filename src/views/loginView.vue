@@ -1,41 +1,30 @@
-<script>
+<script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
-export default {
-  name: "Home",
-  setup() {
-    const router = useRouter();
-    const username = ref("");
-    const password = ref("");
-    const error = ref(false);
-    const login = () => {
-      if (username.value === "tmdb" && password.value === "movies") {
-        router.push("./purchase");
-      } else {
-        error.value = true;
-      }
-    };
-    return {
-      username,
-      password,
-      error,
-      login
-    };
+const router = useRouter();
+const username = ref("");
+const password = ref("");
+const error = ref(false);
+const login = () => {
+  if (username.value === "tmdb" && password.value === "movies") {
+    router.push("./purchase");
+  } else {
+    error.value = true;
   }
 };
 </script>
+
 <template>
   <div class="home-container">
     <h1>FreeMovies4U</h1>
     <h3>Login</h3>
-    <form @submit.prevent="login">
+    <form @submit.prevent="login()">
       <input class="login" type="text" placeholder="Username" v-model="username" />
       <input class="login" type="password" placeholder="Password" v-model="password" />
       <input class="login" type="submit" value="Login" />
     </form>
     <div v-if="error">
-      <p>Incorrect Username/Password!</p>
+      <p>Incorrect Username or Password. Please try again.</p>
     </div>
   </div>
 </template>
@@ -80,7 +69,7 @@ form {
 
 input[type="text"],
 input[type="password"] {
-  margin: 20px 0;
+  margin: 20px;
   padding: 20px;
   font-size: 1.2rem;
   width: 60%;
@@ -110,9 +99,5 @@ input[type="password"] {
   width: 40%;
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-.login:hover {
-  background-color: #035f93;
 }
 </style>

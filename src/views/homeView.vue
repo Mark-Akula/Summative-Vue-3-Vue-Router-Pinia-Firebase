@@ -5,12 +5,13 @@ import SiteHero from '../components/SiteHero.vue';
 </script>
 
 <template>
-  <div>
-    <SiteHeader />
-    <SiteHero />
-    <SiteFooter />
-  </div>
+    <div>
+        <SiteHeader />
+        <SiteHero />
+        <SiteFooter />
+    </div>
 </template>
 
 <style scoped>
+
 </style>

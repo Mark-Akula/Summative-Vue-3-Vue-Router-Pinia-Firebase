@@ -117,7 +117,6 @@ console.log(info)
 }
 
 .purchase-button:hover {
-  background-color: #004d66;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
 }
 </style>

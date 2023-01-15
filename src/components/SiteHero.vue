@@ -1,7 +1,7 @@
 <template>
 <div class="main">
     <img src="../assets/moviewebsitelogo.png"/>
-    <p>Welcome to FreeMovies4U, the premier destination for watching the top 20 movies</p>
+    <p>FreeMovies4U, the premier destination for watching the top rated movies in high quality</p>
 </div>
 </template>
 
