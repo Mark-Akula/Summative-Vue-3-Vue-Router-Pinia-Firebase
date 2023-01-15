@@ -52,10 +52,10 @@ console.log(info)
 .modal-outer-container .modal-inner-container {
   background-color: #1F2123;
   color: white;
-  width: 90%;
-  height: 90%;
-  max-width: 1500px;
-  max-height: 1200px;
+  width: 70%;
+  height: 85%;
+  max-width: 1300px;
+  max-height: 1000px;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -108,7 +108,7 @@ console.log(info)
   border-radius: 20px;
   color: white;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: center;
   font-weight: bold;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -118,7 +118,6 @@ console.log(info)
 
 .purchase-button:hover {
   background-color: #004d66;
-  transform: translateY(-2px);
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
 }
 </style>

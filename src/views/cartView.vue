@@ -5,9 +5,39 @@ const store = useStore();
 
 <template>
   <div v-for="movie in Array.from(store.cart.values())">
-    <img :src="`https://image.tmdb.org/t/p/w500${movie.poster}`" />
-    <h1>{{ movie.title }}</h1>
-    <h2>{{ movie.date }}</h2>
-    <button @click="store.removeFromCart(movie.id)">Remove</button>
+    <img :src="`https://image.tmdb.org/t/p/w500${movie.poster}`" class="movie-poster" />
+    <h1 class="movie-title">{{ movie.title }}</h1>
+    <button @click="store.removeFromCart(movie.id)" class="remove-button">Remove</button>
   </div>
 </template>
+
+<style scoped>
+  .movie-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 1rem 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  .movie-poster {
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .remove-button {
+    border: none;
+    padding: 0.5rem 1rem;
+    background-color: #f44336;
+    color: #fff;
+    border-radius: 0.5rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+  .remove-button:hover {
+    background-color: #e53935;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    transform: translateY(-0.2rem);
+  }
+</style>
