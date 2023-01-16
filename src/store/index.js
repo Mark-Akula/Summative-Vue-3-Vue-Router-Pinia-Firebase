@@ -5,6 +5,7 @@ export const useStore = defineStore("store", {
   state: () => ({
     movies: [],
     cart: new Map(),
+    movieItems: [],
   }),
   actions: {
     async getMovies() {
@@ -22,10 +23,11 @@ export const useStore = defineStore("store", {
       }
     },
     addToCart(id, data) {
-      this.cart.set(id, data)
+      this.movieItems.push({ id, data });
     },
     removeFromCart(id) {
-      this.cart.delete(id);
+      const movieIndex = this.movieItems.findIndex((item) => item.id === id);
+      this.movieItems.splice(movieIndex, 1);
     }
   }
 });

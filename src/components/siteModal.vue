@@ -52,8 +52,8 @@ console.log(info)
 .modal-outer-container .modal-inner-container {
   background-color: #1F2123;
   color: white;
-  width: 70%;
-  height: 85%;
+  width: 90%;
+  height: 90%;
   max-width: 1300px;
   max-height: 1000px;
   position: relative;
@@ -117,6 +117,6 @@ console.log(info)
 }
 
 .purchase-button:hover {
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 8px 15px rgb(0, 0, 0);
 }
 </style>

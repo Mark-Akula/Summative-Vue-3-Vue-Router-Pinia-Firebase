@@ -78,16 +78,8 @@ input[type="password"] {
   background-color: #f0f0f0;
   box-shadow: 2px 2px 5px #ccc;
   color: #333;
-}
-
-input[type="text"] {
   border-bottom: 2px solid #0077C9;
 }
-
-input[type="password"] {
-  border-bottom: 2px solid #0077C9;
-}
-
 .login {
   margin-top: 20px;
   background-color: #0077C9;

@@ -1,13 +1,16 @@
 <script setup>
 import { useStore } from '../store/index.js'
+
 const store = useStore();
 </script>
 
 <template>
-  <div v-for="movie in Array.from(store.cart.values())">
-    <img :src="`https://image.tmdb.org/t/p/w500${movie.poster}`" class="movie-poster" />
-    <h1 class="movie-title">{{ movie.title }}</h1>
-    <button @click="store.removeFromCart(movie.id)" class="remove-button">Remove</button>
+  <div v-for="movie in store.movieItems">
+    <img :src="`https://image.tmdb.org/t/p/w500${movie.data.poster}`" class="movie-poster" />
+    <h1 class="movie-title">{{ movie.data.title }}</h1>
+    <button @click="store.removeFromCart(movie.id)" class="remove-button">
+      Remove
+    </button>
   </div>
 </template>
 
@@ -22,7 +25,7 @@ const store = useStore();
 
 .movie-poster {
   border-radius: 5px;
-  box-shadow: 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 10px rgb(0, 0, 0);
 }
 
 .remove-button {
@@ -34,14 +37,14 @@ const store = useStore();
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
-  box-shadow: 0.5rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0.5rem rgb(0, 0, 0);
   transition: all 0.2s ease;
   margin-bottom: 12px;
 }
 
 .remove-button:hover {
   background-color: #e53935;
-  box-shadow: 1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 1rem rgb(0, 0, 0);
   transform: translateY(-0.2rem);
 }
 </style>
