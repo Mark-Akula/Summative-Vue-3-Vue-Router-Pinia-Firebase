@@ -1,8 +1,8 @@
 <template>
-<div class="main">
-    <img src="../assets/moviewebsitelogo.png"/>
-    <p>FreeMovies4U, the premier destination for watching the top rated movies in high quality</p>
-</div>
+    <div class="main">
+        <img src="../assets/moviewebsitelogo.png" />
+        <p>FreeMovies4U, the premier destination for watching the top rated movies in high quality</p>
+    </div>
 </template>
 
 <style scoped>
@@ -18,6 +18,7 @@
     background-color: #F5E5E5;
     margin-right: 50%;
 }
+
 .logo {
     width: 150px;
     height: 150px;
@@ -33,5 +34,4 @@
     margin: 0;
     padding: 10px 20px;
 }
-
 </style>

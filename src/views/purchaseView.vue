@@ -28,6 +28,7 @@ const closeModal = () => {
         <SiteModal v-if="showModal" @toggleModal="closeModal()" :id="selectedId" />
     </div>
 </template>
+
 <style scoped>
 .shopping-cart {
     color: #0077C9;
@@ -44,6 +45,7 @@ const closeModal = () => {
     top: 0;
     right: 0;
 }
+
 .shopping-cart:hover {
     border-color: #0077C9;
     transition: border-color 0.5s ease;

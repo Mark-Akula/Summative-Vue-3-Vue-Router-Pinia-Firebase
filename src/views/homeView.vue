@@ -13,5 +13,4 @@ import SiteHero from '../components/SiteHero.vue';
 </template>
 
 <style scoped>
-
 </style>

@@ -8,6 +8,9 @@
       <RouterLink to="/login" custom v-slot="{ navigate }">
         <button @click="navigate" role="link" class="sign_in">Login</button>
       </RouterLink>
+      <RouterLink to="/register" custom v-slot="{ navigate }">
+        <button @click="navigate" role="link">Register</button>
+      </RouterLink>
       <img src="../assets/moviebackground.png" />
     </div>
   </div>
@@ -47,7 +50,7 @@ h1 {
   letter-spacing: 2px;
   font-weight: bold;
   border: none;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 10px rgb(0, 0, 0);
   transition: all 0.2s ease;
   position: absolute;
   top: 5%;
@@ -57,13 +60,13 @@ h1 {
 .sign_in:hover {
   background-color: #004d66;
   transform: translateY(-2px);
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 8px 15px rgb(0, 0, 0);
   cursor: pointer;
 }
 
 img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>
