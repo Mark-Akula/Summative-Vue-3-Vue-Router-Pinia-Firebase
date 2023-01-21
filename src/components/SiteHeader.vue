@@ -1,72 +1,20 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
-  <div class="main">
-    <div class="header">
-      <h1>Welcome To FreeMovies4U!</h1>
-      <RouterLink to="/login" custom v-slot="{ navigate }">
-        <button @click="navigate" role="link" class="sign_in">Login</button>
-      </RouterLink>
-      <RouterLink to="/register" custom v-slot="{ navigate }">
-        <button @click="navigate" role="link">Register</button>
-      </RouterLink>
-      <img src="../assets/moviebackground.png" />
-    </div>
+  <div class="header-container">
+    <h1>Netflix</h1>
+    <RouterLink to="/login" custom v-slot="{ navigate }">
+      <button @click="navigate" role="link">Login</button>
+    </RouterLink>
+    <RouterLink to="/register" custom v-slot="{ navigate }">
+      <button @click="navigate" role="link">Register</button>
+    </RouterLink>
   </div>
 </template>
 
 <style scoped>
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  position: relative;
-}
-
-h1 {
-  color: #0077C9;
-  text-align: center;
-  padding: 20px;
-}
-
-.sign_in {
-  font-size: 18px;
-  padding: 10px 25px;
-  border-radius: 20px;
-  background-color: #0077C9;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: bold;
-  border: none;
-  box-shadow: 0px 5px 10px rgb(0, 0, 0);
-  transition: all 0.2s ease;
-  position: absolute;
-  top: 5%;
-  right: 1%;
-}
-
-.sign_in:hover {
-  background-color: #004d66;
-  transform: translateY(-2px);
-  box-shadow: 0px 8px 15px rgb(0, 0, 0);
-  cursor: pointer;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.header-container {
+  padding: 1rem;
+  border: 1px solid red;
 }
 </style>

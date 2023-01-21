@@ -1,68 +1,106 @@
 <script setup>
-import { useStore } from "../store/index.js";
-import router from "../router";
-import SiteModal from "../components/SiteModal.vue";
+import axios from "axios";
 import { ref } from "vue";
+import SiteModal from "../components/SiteModal.vue";
+import { useStore } from "../store/index.js";
 const store = useStore();
-await store.getMovies();
+const genre = ref(28);
+const criteria = ref("");
+const searchResults = ref([]);
+const page = ref(1);
+const totalPages = ref(0);
 const showModal = ref(false);
 const selectedId = ref(0);
-function addCart() {
-    router.push("/cart");
-}
 const openModal = (id) => {
-    showModal.value = true;
-    selectedId.value = id;
+  showModal.value = true;
+  selectedId.value = id;
 };
 const closeModal = () => {
-    showModal.value = false;
+  showModal.value = false;
 };
+const getGenres = async () => {
+  searchResults.value = [];
+  criteria.value = "";
+  await store.getMovies(genre.value);
+};
+const search = async (direction) => {
+  page.value += direction;
+  let data = (
+    await axios.get("https://api.themoviedb.org/3/search/movie", {
+      params: {
+        api_key: "e5a15bfef5377c118448ec56598ced79",
+        query: criteria.value,
+        include_adult: false,
+        page: page.value,
+      },
+    })
+  ).data;
+  totalPages.value = data.total_pages;
+  searchResults.value = data.results.map((movie) => {
+    return {
+      id: movie.id,
+      image: movie.poster_path,
+    };
+  });
+};
+// SHOULD ONLY BE RUN ONCE!!!!
+// await store.populateFirestore();
 </script>
 
 <template>
-    <div>
-        <button class="shopping-cart" @click="addCart()">Shopping Cart</button>
-        <div class="Movieposter">
-            <img v-for="movie in store.movies" :src="movie.poster" class="img" @click="openModal(movie.id)" />
-        </div>
-        <SiteModal v-if="showModal" @toggleModal="closeModal()" :id="selectedId" />
+  <input type="search" v-model="criteria" @keydown.enter="search(0)" />
+  <br />
+  <RouterLink to="/cart" custom v-slot="{ navigate }">
+    <button @click="navigate" role="link">Cart</button>
+  </RouterLink>
+  <br />
+  <select v-model="genre" @change="getGenres()">
+    <option value="Action">Action</option>
+    <option value="Family">Family</option>
+    <option value="Science Fiction">Science Fiction</option>
+    <option value="Adventure">Adventure</option>
+    <option value="Fantasy">Fantasy</option>
+  </select>
+  <template v-if="searchResults.length">
+    <div class="navigation">
+      <button v-show="page > 1" @click="search(-1)">Prev</button>
+      <h1>{{ `Page ${page} of ${totalPages}` }}</h1>
+      <button v-show="page < totalPages" @click="search(1)">Next</button>
     </div>
+  </template>
+  <div class="purchase-container">
+    <template v-if="searchResults.length">
+      <img
+        v-for="movie in searchResults"
+        :id="movie.id"
+        @click="openModal(movie.id)"
+        :src="`https://image.tmdb.org/t/p/w500${movie.image}`"
+      />
+    </template>
+    <template v-else>
+      <img
+        v-for="movie in store.movies"
+        :id="movie.id"
+        @click="openModal(movie.id)"
+        :src="`https://image.tmdb.org/t/p/w500${movie.image}`"
+      />
+    </template>
+    <SiteModal v-if="showModal" @toggleModal="closeModal()" :id="selectedId" />
+  </div>
 </template>
 
 <style scoped>
-.shopping-cart {
-    color: #0077C9;
-    text-shadow: 2px 2px 5px #ccc;
-    cursor: pointer;
-    border-color: #4CAF50;
-    border-width: 2px;
-    border-style: solid;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    padding: 20px;
-    font-size: 17px;
-    position: absolute;
-    margin-right: 1%;
-    top: 0;
-    right: 0;
+.purchase-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
 }
-
-.shopping-cart:hover {
-    border-color: #0077C9;
-    transition: border-color 0.5s ease;
-}
-
 img {
-    width: 300px;
-    border-style: solid;
-    border-color: #0f0f0fe0;
-    border-width: 3px;
-    margin-right: 10px;
-    margin-top: 15px;
-    transition: border 0.3s;
+  width: 200px;
+  aspect-ratio: 2 / 3;
 }
-
-img:hover {
-    border-color: #0077C9;
-    transition: border-color 0.5s ease;
+.navigation {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
