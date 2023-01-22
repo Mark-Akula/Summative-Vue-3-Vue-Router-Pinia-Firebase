@@ -7,24 +7,34 @@ import {
     GoogleAuthProvider,
     signInWithPopup,
 } from "firebase/auth";
-const passcheck = ref(false);
+
 const username = ref("");
 const email = ref("");
 const password1 = ref("");
 const password2 = ref("");
+const passwordsMatch = ref(false);
+const isFormValid = ref(false);
+
 const registerUserByEmail = async () => {
     if (password1.value !== password2.value) {
-        passcheck.value = true;
+        passwordsMatch.value = true;
         return;
     } else {
-        router.push("/purchase");
+        passwordsMatch.value = false;
     }
+    if (!username.value || !email.value || !password1.value || !password2.value) {
+        isFormValid.value = false;
+        return;
+    }
+    isFormValid.value = true;
+    router.push("/purchase");
     try {
         await createUserWithEmailAndPassword(auth, email.value, password1.value);
     } catch (error) {
         console.log(error);
     }
 };
+
 const registerUserByGoogle = async () => {
     try {
         const provider = new GoogleAuthProvider();
@@ -51,8 +61,8 @@ const registerUserByGoogle = async () => {
                 <input v-model="password2" type="password" placeholder="re-enter password" />
                 <input type="submit" value="Register" />
             </form>
-            <div v-if="passcheck">
-                <p>Passwords do not match</p>
+            <div v-if="passwordsMatch">
+                <p>The passwords that were provided do not match!</p>
             </div>
         </div>
     </div>

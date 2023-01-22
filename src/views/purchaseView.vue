@@ -12,20 +12,25 @@ const page = ref(1);
 const totalPages = ref(0);
 const showModal = ref(false);
 const selectedId = ref(0);
+
 const openModal = (id) => {
   showModal.value = true;
   selectedId.value = id;
 };
+
 const closeModal = () => {
   showModal.value = false;
 };
+
 const getGenres = async () => {
   searchResults.value = [];
   criteria.value = "";
   await store.getMovies(genre.value);
 };
+
 const search = async (direction) => {
   page.value += direction;
+
   let data = (
     await axios.get("https://api.themoviedb.org/3/search/movie", {
       params: {
@@ -36,7 +41,9 @@ const search = async (direction) => {
       },
     })
   ).data;
+
   totalPages.value = data.total_pages;
+  
   searchResults.value = data.results.map((movie) => {
     return {
       id: movie.id,
@@ -115,10 +122,9 @@ img:hover {
 .search-input {
   padding: 8px;
   border-radius: 8px;
-  border: none;
   font-size: 16px;
   width: 50%;
-  margin: 16px 0;
+  margin: 16px;
 }
 
 .cart-button {
@@ -162,5 +168,4 @@ img:hover {
 .previous-button:hover, .next-button:hover {
   background-color: #ff6347;
 }
-
 </style>

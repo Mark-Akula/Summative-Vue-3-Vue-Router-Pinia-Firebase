@@ -1,5 +1,4 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
   <div class="main">
@@ -35,7 +34,7 @@
 }
 
 h1 {
-  color: #0077C9;
+  color: #0077c9;
   text-align: center;
   padding: 20px;
 }
@@ -44,7 +43,7 @@ h1 {
   font-size: 18px;
   padding: 10px 25px;
   border-radius: 20px;
-  background-color: #0077C9;
+  background-color: #0077c9;
   color: white;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -68,7 +67,7 @@ h1 {
   font-size: 18px;
   padding: 10px 10px;
   border-radius: 20px;
-  background-color: #0077C9;
+  background-color: #0077c9;
   color: white;
   text-transform: uppercase;
   letter-spacing: 2px;

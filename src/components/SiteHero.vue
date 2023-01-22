@@ -1,12 +1,14 @@
 <template>
     <div class="main">
-        <img src="../assets/moviewebsitelogo.png" />
-        <p>FreeMovies4U, the premier destination for watching the top rated movies in high quality</p>
+      <img src="../assets/moviewebsitelogo.png" />
+      <p>
+        FreeMovies4U, the premier destination for watching the top rated movies in high quality
+      </p>
     </div>
-</template>
-
-<style scoped>
-.main {
+  </template>
+  
+  <style scoped>
+  .main {
     height: 35vh;
     width: 96%;
     margin: auto;
@@ -15,17 +17,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #F5E5E5;
+    background-color: #f5e5e5;
     margin-right: 50%;
-}
-
-.logo {
+  }
+  
+  .logo {
     width: 150px;
     height: 150px;
     margin-bottom: 30px;
-}
-
-.main p {
+  }
+  
+  .main p {
     font-size: 22px;
     font-weight: 600;
     color: #333;
@@ -33,5 +35,5 @@
     width: 100%;
     margin: 0;
     padding: 10px 20px;
-}
-</style>
+  }
+  </style>

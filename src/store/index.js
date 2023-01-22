@@ -8,6 +8,7 @@ export const useStore = defineStore('store', {
     return {
       movies: [],
       cart: new Map(),
+      movieItems: [],
     }
   },
   actions: {
@@ -34,11 +35,26 @@ export const useStore = defineStore('store', {
     async getMovies(genre) {
       this.movies = (await getDoc(doc(firestore, "Genre", genre))).data().data;
     },
+    async getMovies() {
+      let data = (await axios.get("https://api.themoviedb.org/3/trending/movie/week", {
+        params: {
+          api_key: "e5a15bfef5377c118448ec56598ced79",
+          include_adult: "false",
+        },
+      })).data.results;
+      for (let movie of data) {
+        this.movies.push({
+          id: movie.id,
+          image: movie.poster_path,
+        });
+      }
+    },
     addToCart(id, data) {
-      this.cart.set(id, data);
+      this.movieItems.push({ id, data });
     },
     removeFromCart(id) {
-      this.cart.delete(id);
+      const movieIndex = this.movieItems.findIndex((item) => item.id === id);
+      this.movieItems.splice(movieIndex, 1);
     }
   }
 });

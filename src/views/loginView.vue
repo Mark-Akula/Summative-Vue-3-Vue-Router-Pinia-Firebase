@@ -7,27 +7,35 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-const email = ref("");
+
+const username = ref("");
 const password = ref("");
+const error = ref(false);
+
 const signInByGoogle = async () => {
+  error.value = false;
   try {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
     router.push("./purchase");
-  } catch (error) {
-    console.log(error);
+  } catch (loginError) {
+    error.value = true;
   }
 };
+
 const signInWithEmail = async () => {
+  error.value = false;
+  if (!username.value || !password.value) {
+    return;
+  }
   try {
-    await signInWithEmailAndPassword(auth, email.value, password.value);
+    await signInWithEmailAndPassword(auth, username.value, password.value);
     router.push("/purchase");
-  } catch (error) {
-    console.log(error);
+  } catch (loginError) {
+    error.value = true;
   }
 };
 </script>
-
 <template>
   <h1>FreeMovies4U</h1>
   <div class="home-container">
@@ -42,11 +50,9 @@ const signInWithEmail = async () => {
         <input class="login" type="password" placeholder="Password" v-model="password" />
         <input class="login" type="submit" value="Login" />
       </form>
-      <transition name="fade">
-        <div v-if="error" class="error">
-          Incorrect Username or Password. Please try again.
-        </div>
-      </transition>
+      <div v-if="error">
+        <p>Incorrect Username or Password. Please try again.</p>
+      </div>
     </div>
   </div>
 </template>
