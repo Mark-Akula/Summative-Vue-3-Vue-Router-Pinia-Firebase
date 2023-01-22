@@ -1,30 +1,52 @@
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
-const router = useRouter();
-const username = ref("");
+import router from "../router";
+import { auth } from "../firebase/index";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+const email = ref("");
 const password = ref("");
-const error = ref(false);
-const login = () => {
-  if (username.value === "tmdb" && password.value === "movies") {
+const signInByGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
     router.push("./purchase");
-  } else {
-    error.value = true;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const signInWithEmail = async () => {
+  try {
+    await signInWithEmailAndPassword(auth, email.value, password.value);
+    router.push("/purchase");
+  } catch (error) {
+    console.log(error);
   }
 };
 </script>
 
 <template>
+  <h1>FreeMovies4U</h1>
   <div class="home-container">
-    <h1>FreeMovies4U</h1>
-    <h3>Login</h3>
-    <form @submit.prevent="login()">
-      <input class="login" type="text" placeholder="Username" v-model="username" />
-      <input class="login" type="password" placeholder="Password" v-model="password" />
-      <input class="login" type="submit" value="Login" />
-    </form>
-    <div v-if="error">
-      <p>Incorrect Username or Password. Please try again.</p>
+    <div class="container1">
+      <h2>Login by Google</h2>
+      <button class="login google-button" @click="signInByGoogle()">Google</button>
+    </div>
+    <div class="container1">
+      <h2>Login by Email</h2>
+      <form @submit.prevent="signInWithEmail()">
+        <input class="login" type="text" placeholder="Username" v-model="username" />
+        <input class="login" type="password" placeholder="Password" v-model="password" />
+        <input class="login" type="submit" value="Login" />
+      </form>
+      <transition name="fade">
+        <div v-if="error" class="error">
+          Incorrect Username or Password. Please try again.
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -38,6 +60,7 @@ body {
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
 }
+
 .home-container {
   display: flex;
   flex-direction: column;
@@ -45,6 +68,7 @@ body {
   font-size: 2rem;
   color: #333;
 }
+
 h1 {
   grid-area: 1 / 1 / 2 / 3;
   align-self: center;
@@ -56,6 +80,7 @@ h1 {
   color: #0077C9;
   text-shadow: 2px 2px 5px #ccc;
 }
+
 form {
   grid-area: 2 / 1 / 3 / 3;
   display: flex;
@@ -63,6 +88,7 @@ form {
   align-items: center;
   padding: 20px;
 }
+
 input[type="text"],
 input[type="password"] {
   margin: 20px;
@@ -76,9 +102,23 @@ input[type="password"] {
   color: #333;
   border-bottom: 2px solid #0077C9;
 }
+
 .login {
   margin-top: 20px;
   background-color: #0077C9;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 8px;
+  padding: 12px 20px;
+  width: 40%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.google-button {
+  margin-top: 20px;
+  background-color: #4285F4;
   color: #fff;
   font-size: 1.2rem;
   text-align: center;
