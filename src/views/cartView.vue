@@ -8,9 +8,7 @@ const store = useStore();
   <div v-for="movie in store.movieItems">
     <img :src="`https://image.tmdb.org/t/p/w500${movie.data.poster}`" class="movie-poster" />
     <h1 class="movie-title">{{ movie.data.title }}</h1>
-    <button @click="store.removeFromCart(movie.id)" class="remove-button">
-      Remove
-    </button>
+    <button @click="store.removeFromCart(movie.id)" class="remove-button">Remove</button>
   </div>
 </template>
 

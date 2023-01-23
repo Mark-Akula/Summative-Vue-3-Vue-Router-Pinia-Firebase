@@ -1,15 +1,15 @@
 import { firestore } from "../firebase/index";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { defineStore } from 'pinia'
-import axios from 'axios';
+import { defineStore } from "pinia";
+import axios from "axios";
 
-export const useStore = defineStore('store', {
+export const useStore = defineStore("store", {
   state: () => {
     return {
       movies: [],
       cart: new Map(),
       movieItems: [],
-    }
+    };
   },
   actions: {
     async populateFirestore() {
@@ -17,17 +17,17 @@ export const useStore = defineStore('store', {
 
       genres.forEach(async (value, key) => {
         let data = (await axios.get("https://api.themoviedb.org/3/discover/movie", {
-          params: {
-            api_key: "e5a15bfef5377c118448ec56598ced79",
-            with_genres: key,
-            include_adult: false,
-          }
+            params: {
+              api_key: "e5a15bfef5377c118448ec56598ced79",
+              with_genres: key,
+              include_adult: false,
+            }
         })).data.results;
         data = data.map((movie) => {
           return {
             id: movie.id,
             image: movie.poster_path,
-          }
+          };
         });
         await setDoc(doc(firestore, "Genre", value), { data });
       });
@@ -35,14 +35,18 @@ export const useStore = defineStore('store', {
     async getMovies(genre) {
       this.movies = (await getDoc(doc(firestore, "Genre", genre))).data().data;
     },
-    async getMovies() {
-      let data = (await axios.get("https://api.themoviedb.org/3/trending/movie/week", {
-        params: {
-          api_key: "e5a15bfef5377c118448ec56598ced79",
-          include_adult: "false",
-        },
-      })).data.results;
-      for (let movie of data) {
+    async getMovies(id) {
+      this.movies = [];
+      const res = await axios.get("https://api.themoviedb.org/3/discover/movie", {
+          params: {
+            api_key: "e5a15bfef5377c118448ec56598ced79",
+            include_adults: false,
+            with_genres: id,
+          },
+        }
+      );
+      const data = await res.data;
+      for (let movie of data.results) {
         this.movies.push({
           id: movie.id,
           image: movie.poster_path,
@@ -55,6 +59,6 @@ export const useStore = defineStore('store', {
     removeFromCart(id) {
       const movieIndex = this.movieItems.findIndex((item) => item.id === id);
       this.movieItems.splice(movieIndex, 1);
-    }
-  }
+    },
+  },
 });

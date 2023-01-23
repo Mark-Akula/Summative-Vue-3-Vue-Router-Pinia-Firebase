@@ -95,8 +95,7 @@ form {
   padding: 20px;
 }
 
-input[type="text"],
-input[type="password"] {
+input[type="text"], input[type="password"] {
   margin: 20px;
   padding: 20px;
   font-size: 1.2rem;
