@@ -56,7 +56,16 @@ const search = async (direction) => {
 </script>
 
 <template>
+<<<<<<< HEAD:src/views/purchaseView.vue
   <input type="search" v-model="criteria" @keydown.enter="search(0)" class="search-input" />
+=======
+  <input
+    type="search"
+    v-model="criteria"
+    @keydown.enter="search(0)"
+    class="search-input"
+  />
+>>>>>>> 5f9de557eb1c054296e4a0a0985143589d0beec9:src/views/PurchaseView.vue
   <br />
   <RouterLink to="/cart" custom v-slot="{ navigate }">
     <button @click="navigate" role="link" class="cart-button">Cart</button>
@@ -71,13 +80,24 @@ const search = async (direction) => {
   </select>
   <template v-if="searchResults.length">
     <div class="navigation">
+<<<<<<< HEAD:src/views/purchaseView.vue
       <button v-show="page > 1" @click="search(-1)" class="previous-button">Prev</button>
       <h1>{{ `Page ${page} of ${totalPages}` }}</h1>
       <button v-show="page < totalPages" @click="search(1)" class="next-button">Next</button>
+=======
+      <button v-show="page > 1" @click="search(-1)" class="previous-button">
+        Prev
+      </button>
+      <h1>{{ `Page ${page} of ${totalPages}` }}</h1>
+      <button v-show="page < totalPages" @click="search(1)" class="next-button">
+        Next
+      </button>
+>>>>>>> 5f9de557eb1c054296e4a0a0985143589d0beec9:src/views/PurchaseView.vue
     </div>
   </template>
   <div class="purchase-container">
     <template v-if="searchResults.length">
+<<<<<<< HEAD:src/views/purchaseView.vue
       <img v-for="movie in searchResults" :id="movie.id" @click="openModal(movie.id)"
         :src="`https://image.tmdb.org/t/p/w500${movie.image}`" />
     </template>
@@ -85,6 +105,24 @@ const search = async (direction) => {
       <img v-for="movie in store.movies" :id="movie.id" @click="openModal(movie.id)"
         :src="`https://image.tmdb.org/t/p/w500${movie.image}`" />
     </template>
+=======
+      <img
+        v-for="movie in searchResults"
+        :id="movie.id"
+        @click="openModal(movie.id)"
+        :src="`https://image.tmdb.org/t/p/w500${movie.image}`"
+      />
+    </template>
+    <template v-else>
+      <img
+        v-for="movie in store.movies"
+        :id="movie.id"
+        @click="openModal(movie.id)"
+        :src="`https://image.tmdb.org/t/p/w500${movie.image}`"
+      />
+    </template>
+    >
+>>>>>>> 5f9de557eb1c054296e4a0a0985143589d0beec9:src/views/PurchaseView.vue
     <SiteModal v-if="showModal" @toggleModal="closeModal()" :id="selectedId" />
   </div>
 </template>
@@ -142,7 +180,13 @@ img:hover {
   margin: 16px;
   border: none;
 }
+<<<<<<< HEAD:src/views/purchaseView.vue
 .previous-button, .next-button {
+=======
+
+.previous-button,
+.next-button {
+>>>>>>> 5f9de557eb1c054296e4a0a0985143589d0beec9:src/views/PurchaseView.vue
   padding: 8px 16px;
   background-color: #ff7f50;
   color: white;
@@ -153,7 +197,13 @@ img:hover {
   margin-bottom: 1%;
   cursor: pointer;
 }
+<<<<<<< HEAD:src/views/purchaseView.vue
 .previous-button:hover, .next-button:hover {
+=======
+
+.previous-button:hover,
+.next-button:hover {
+>>>>>>> 5f9de557eb1c054296e4a0a0985143589d0beec9:src/views/PurchaseView.vue
   background-color: #ff6347;
 }
 </style>
